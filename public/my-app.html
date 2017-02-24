@@ -1,0 +1,25 @@
+<link rel="import" href="bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="my-login.html">
+
+<dom-module id="my-app">
+	<template>
+		<!-- 
+			Important: The firebase-app element needs 
+		 	to appear before other firebase-* elements
+		-->
+		<firebase-app
+			id="firebase"
+			auth-domain="polycast-firebase.firebaseapp.com"
+			database-url="https://polycast-firebase.firebaseio.com"
+			api-key="AIzaSyBlGa0HxT0AjsmypMiFQ92rLLP-ITs2gLc">
+		</firebase-app>
+
+		<my-login></my-login>
+	</template>
+
+	<script>
+		Polymer({
+			is: 'my-app'
+		});
+	</script>
+</dom-module>
