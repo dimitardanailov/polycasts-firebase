@@ -1,0 +1,94 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="bower_components/polymerfire/firebase-query.html">
+
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+
+
+
+<dom-module id="my-notes">
+	<template>
+		<style>
+			:host {
+				display: block;
+				padding: 10px;
+			}
+
+			#create {
+				width: 100%;
+			}
+
+			#notes-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			#notes-list li {
+				@apply(--layout-horizontal);
+        		@apply(--layout-center);
+			}
+
+			#notes-list .content {
+				@apply(--layout-flex);
+				padding: 8px;
+			}
+
+			#notes-controls {
+				@apply(--layout-horizontal);
+				@apply(--layout-center-justified);
+			}
+		</style>
+
+		<div class="card">
+			<firebase-auth user="{{user}}"></firebase-auth>
+			<firebase-query
+        		id="query"
+        		path="/users/[[user.uid]]/notes"
+        		data="{{notes}}">
+      		</firebase-query>
+
+      		<div id="notes" hidden$="[[!user]]">
+      			<h2>My notes</h2>
+      			<ul id="notes-list">
+      				<template is="dom-repeat" items="[[notes]]" as="note">
+      					<li>
+              				<p class="content">[[note.content]]</p>
+              				<button icon="clear" note="[[note]]" on-tap="remove">Remove</button>
+           			 	</li>
+      				</template>
+      			</ul>
+
+      			<input id="input" label="Take a note..."></input>
+      			 <div id="notes-controls">
+          			<button id="add" on-tap="add">Add</button>
+        		</div>
+      		</div>
+		</div>
+	</template>
+
+	<script>
+		 Polymer({
+		 	is: 'my-notes',
+
+		 	properties: {
+		 		notes: {
+		 			type: Object
+		 		}
+		 	},
+		 	
+		 	add: function() {
+		 		this.$.query.ref.push({
+		 			content: this.$.input.value
+		 		});
+
+		 		this.$.input.value = null;
+		 	},
+
+		 	remove: function(e) {
+        		var key = e.currentTarget.note.$key;
+        		this.$.query.ref.child(key).remove();
+      		}
+		 });
+	</script>
+</dom-module>

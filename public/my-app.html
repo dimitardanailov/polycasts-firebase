@@ -1,8 +1,20 @@
 <link rel="import" href="bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="my-login.html">
+<link rel="import" href="my-notes.html">
 
 <dom-module id="my-app">
 	<template>
+		<style>
+			:host {
+				position: relative;
+
+				display: block;
+				font-family: Roboto, sans-serif;
+				max-width: 640px;
+				margin: 0 auto;
+			}
+		</style>
+
 		<!-- 
 			Important: The firebase-app element needs 
 		 	to appear before other firebase-* elements
@@ -14,7 +26,13 @@
 			api-key="AIzaSyBlGa0HxT0AjsmypMiFQ92rLLP-ITs2gLc">
 		</firebase-app>
 
-		<my-login></my-login>
+		<header>
+			<my-login></my-login>
+		</header>
+
+		<main>
+			<my-notes></my-notes>
+		</main>
 	</template>
 
 	<script>
