@@ -1,6 +1,7 @@
 <link rel="import" href="bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="my-login.html">
 <link rel="import" href="my-notes.html">
+<link rel="import" href="my-subscription.html">
 
 <dom-module id="my-app">
 	<template>
@@ -15,15 +16,16 @@
 			}
 		</style>
 
-		<!-- 
-			Important: The firebase-app element needs 
+		<!--
+			Important: The firebase-app element needs
 		 	to appear before other firebase-* elements
 		-->
 		<firebase-app
 			id="firebase"
 			auth-domain="polycast-firebase.firebaseapp.com"
 			database-url="https://polycast-firebase.firebaseio.com"
-			api-key="AIzaSyBlGa0HxT0AjsmypMiFQ92rLLP-ITs2gLc">
+			api-key="AIzaSyBlGa0HxT0AjsmypMiFQ92rLLP-ITs2gLc"
+			messaging-sender-id="266711071427">
 		</firebase-app>
 
 		<header>
@@ -32,6 +34,7 @@
 
 		<main>
 			<my-notes></my-notes>
+			<my-subscription></my-subscription>
 		</main>
 	</template>
 
